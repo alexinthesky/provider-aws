@@ -20,14 +20,6 @@ func Configure(p *config.Provider) {
 		}
 	})
 
-	p.AddResourceConfigurator("aws_iam_role", func(r *config.Resource) {
-		// Mutually exclusive with:
-		// aws_iam_policy_attachment
-		// aws_iam_role_policy_attachment
-		// aws_iam_role_policy
-		config.MoveToStatus(r.TerraformResource, "inline_policy", "managed_policy_arns")
-	})
-
 	p.AddResourceConfigurator("aws_iam_instance_profile", func(r *config.Resource) {
 		r.References = config.References{
 			"role": config.Reference{
