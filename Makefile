@@ -12,7 +12,7 @@ export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/hashicorp/te
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/hashicorp/terraform-provider-aws
 export TERRAFORM_DOCS_PATH ?= website/docs/r
 
-PLATFORMS ?= linux_amd64 linux_arm64
+PLATFORMS ?= linux_amd64
 
 # -include will silently skip missing files, which allows us
 # to load those files with a target in the Makefile. If only
@@ -142,7 +142,7 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 
 pull-docs:
 	rm -fR "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))"
-	git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))";
+	git clone --branch "v$(TERRAFORM_PROVIDER_VERSION)" "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))";
 	@git -C "$(WORK_DIR)/$(notdir $(TERRAFORM_PROVIDER_REPO))" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
 
 generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs

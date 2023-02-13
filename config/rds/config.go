@@ -88,6 +88,9 @@ func Configure(p *config.Provider) {
 			if a, ok := attr["username"].(string); ok {
 				conn["username"] = []byte(a)
 			}
+			if a, ok := attr["port"].(string); ok {
+				conn["port"] = []byte(a)
+			}
 			return conn, nil
 		}
 	})
