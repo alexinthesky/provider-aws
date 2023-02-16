@@ -8,6 +8,8 @@ import (
 	"github.com/upbound/upjet/pkg/config"
 
 	"github.com/upbound/provider-aws/config/common"
+
+	"strconv"
 )
 
 // Configure adds configurations for rds group.
@@ -88,9 +90,9 @@ func Configure(p *config.Provider) {
 			if a, ok := attr["username"].(string); ok {
 				conn["username"] = []byte(a)
 			}
-			if a, ok := attr["port"].(string); ok {
-				conn["port"] = []byte(a)
-			}
+
+			conn["port"] = []byte(strconv.Itoa(attr["port"].(int)))
+
 			return conn, nil
 		}
 	})
