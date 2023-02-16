@@ -9,7 +9,7 @@ import (
 
 	"github.com/upbound/provider-aws/config/common"
 
-	"strconv"
+	"fmt"
 )
 
 // Configure adds configurations for rds group.
@@ -91,7 +91,7 @@ func Configure(p *config.Provider) {
 				conn["username"] = []byte(a)
 			}
 
-			conn["port"] = []byte(strconv.Itoa(attr["port"].(int)))
+			conn["port"] = []byte(fmt.Sprintf("%v", attr["port"]))
 
 			return conn, nil
 		}
